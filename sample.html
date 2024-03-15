@@ -1,0 +1,150 @@
+<html>
+
+<head>
+  <title>Cool Fact Collection</title>
+</head>
+
+<body>
+  <h2 id="header">Cool Fact Collection</h2>
+  <p>
+    <span class="verifiable-credential" data-ref="#ref1">Alan Turing was born on June 23, 1912.</span>
+  </p>
+  <p>
+    Question: What is the latitude and longitude of the Empire State Building?
+
+    Answer: <span class="verifiable-credential" data-ref="#ref2">The Empire State Building is located at latitude 40
+      deg 44 min 54.36 sec N, longitude 73 deg 59 min 8.5 sec W.</span>
+  </p>
+  <p>
+    <span class="verifiable-presentation" data-ref="#ref3">I was born before 2000.</span>
+  </p>
+  <p>
+    <a href="https://yamdan.github.io/vc-example/public/vp/I-live-in-a-city-with-a-population-of-10000.jsonld#verifiable-presentation">I live in a city with a population of 10,000.</a>
+  </p>
+
+  <script id="ref1" type="application/ld+json">
+    {
+      "@context": [
+        "https://www.w3.org/2018/credentials/v1",
+        "https://www.w3.org/ns/data-integrity/v1",
+        "https://schema.org/"
+      ],
+      "id": "http://example.org/credentials/person/0",
+      "type": "VerifiableCredential",
+      "credentialSubject": {
+        "id": "https://www.wikidata.org/wiki/Q7251",
+        "type": "Person",
+        "birthDate": "1912-06-23",
+        "name": "Alan Turing"
+      },
+      "expirationDate": "2026-02-21T00:00:00Z",
+      "issuanceDate": "2024-02-21T00:00:00Z",
+      "issuer": "did:example:issuer0",
+      "proof": {
+        "@context": "https://www.w3.org/ns/data-integrity/v1",
+        "type": "DataIntegrityProof",
+        "created": "2024-02-28T06:11:11.146Z",
+        "cryptosuite": "bbs-termwise-signature-2023",
+        "proofPurpose": "assertionMethod",
+        "proofValue": "ug2fWWOSQZ23n3NslCGB_bEUPXIiWQhXRPY1bCIAHZlQgKr_07_WXYD_mLkvHxLjqo0z0hUZ3yzvnmWBDtNj7xTuk4w1lG80Lpa6L0fQ_jWD9oIXpzvwZLGxz4iqjrKXJqIVDh-ZHE4rPwrq4I1HJIQ",
+        "verificationMethod": "did:example:issuer0#bls12_381-g2-pub001"
+      }
+    }
+  </script>
+  <script id="ref2" type="application/ld+json">
+    {
+      "@context": [
+        "https://www.w3.org/2018/credentials/v1",
+        "https://www.w3.org/ns/data-integrity/v1",
+        "https://schema.org/"
+      ],
+      "id": "http://example.org/credentials/city/0",
+      "type": "VerifiableCredential",
+      "credentialSubject": {
+        "id": "https://www.wikidata.org/wiki/Q9188",
+        "type": "Place",
+        "geo": {
+          "type": "GeoCoordinates",
+          "latitude": "40.75",
+          "longitude": "-73.98"
+        },
+        "name": "Empire State Building"
+      },
+      "expirationDate": "2026-02-01T00:00:00Z",
+      "issuanceDate": "2024-02-01T00:00:00Z",
+      "issuer": "did:example:issuer1",
+      "proof": {
+        "@context": "https://www.w3.org/ns/data-integrity/v1",
+        "type": "DataIntegrityProof",
+        "created": "2024-02-28T06:12:21.991Z",
+        "cryptosuite": "bbs-termwise-signature-2023",
+        "proofPurpose": "assertionMethod",
+        "proofValue": "uhN4Sya0iyU5RAAVkCdDrOrumfQAwEU2Md3QFF49eQEXLWrEhn_P4uVVfbG7io2liLNWAjicNb2rxuP66S8mTbv_b80qdeN7PD4XtzsiUUziv09PbI_iUA2WPr3j6qA3kaM5VsBxPzKf4sFLqjhxLBQ",
+        "verificationMethod": "did:example:issuer1#bls12_381-g2-pub001"
+      }
+    }
+  </script>
+  <script id="ref3" type="application/ld+json">
+    {
+      "@context": [
+        "https://www.w3.org/2018/credentials/v1",
+        "https://www.w3.org/ns/data-integrity/v1",
+        "https://schema.org/",
+        "https://zkp-ld.org/context.jsonld"
+      ],
+      "type": "VerifiablePresentation",
+      "proof": {
+        "type": "DataIntegrityProof",
+        "created": "2024-02-22T09:32:00.764Z",
+        "challenge": "I was born before 2000.",
+        "cryptosuite": "bbs-termwise-proof-2023",
+        "domain": "example.org",
+        "proofPurpose": "authentication",
+        "proofValue": "uomFhWQWtAwAAAAAAAAAArGXYr8SeWJSlhO_bXG_cLOFkeKesAwopAydMtwjOStSvm3NJfwKvG96I6M_Ea-2DufI5nFh6QI5dP2LCOoTWXOpYoKuv900Z2ruDIL51pMIEdE5qHVCZphAo2sp_O4bntOAOAEl0rVH7o9gSDvfM0TDwAm8HcqoSPZDuFO780d6p9awtZLfrLY01HcF0uun1pI4MoJnQh7XwZC0k8jUVZAHlI5Nb2oGUqbYsuCZvm1kt0CYiwH4x7MdMj0UC3z25AgAAAAAAAACY5Ns22MICuLweYkRz7HKGS0Wgt9mCfIcze9FX_o6zGrF6rb5wQsuTvSz2sJmQJxsxThdP6dlrEo29VIbLHZYUjlSpBVpmdHEhvA3-c3FNdcz9mGiI9Yig52MetsrQwjueiBXJ7RhDXtf5MXN9UhjyFAAAAAAAAADHe_udsXbjqEKoABXwW_ioVPopEhUkRKqr732J0WLbCOyNpZsgZPcblrhlwP3MVvIuCaCavU0shWVHRLjMWG0me59aTpXnFPnTvMvwxpIr2Iv0ggu96h7Rl9VhHbmV1COE_qJznex9P-Q6hU0O2TR9hwbFe5ghq_aZCPP_q20dWIT-onOd7H0_5DqFTQ7ZNH2HBsV7mCGr9pkI8_-rbR1YfQDV4g5z6SVW7ry7f4xCA7Q67LWRuheAoW_If10xbxuE_qJznex9P-Q6hU0O2TR9hwbFe5ghq_aZCPP_q20dWIT-onOd7H0_5DqFTQ7ZNH2HBsV7mCGr9pkI8_-rbR1YhP6ic53sfT_kOoVNDtk0fYcGxXuYIav2mQjz_6ttHVh9ANXiDnPpJVbuvLt_jEIDtDrstZG6F4Chb8h_XTFvG5xHovPGyXTSlsOZqnM9Qle3jnvOT5l96ior1sMHfl8GuwBqKdPHC_B2X8GX-5LT9ycJGbay0XI5f0Gvx00dCR69yePiBeaH_B8huESjWWAI91NnXzzFyrE03B4HMfMAPr3udGW5uk2tLkOvPGgt4lX0XluhBz_3dYAX0qYbp3AjfQDV4g5z6SVW7ry7f4xCA7Q67LWRuheAoW_If10xbxs2b3tuFXu0GY2SYPgciXlNalmqD10ISTb-Frxb1onLITZve24Ve7QZjZJg-ByJeU1qWaoPXQhJNv4WvFvWicshNm97bhV7tBmNkmD4HIl5TWpZqg9dCEk2_ha8W9aJyyE2b3tuFXu0GY2SYPgciXlNalmqD10ISTb-Frxb1onLITZve24Ve7QZjZJg-ByJeU1qWaoPXQhJNv4WvFvWicshA7d19Z17lHHcQJu7koW7vWahjJkYXRt7VZhj3KgBIGPrlqCT04-vWqvYri3CFMul3AEAAAAAAAAAe59aTpXnFPnTvMvwxpIr2Iv0ggu96h7Rl9VhHbmV1CMGisQhgnKJ-Ts5fn6hSDboVAZ4WAcdXyTbm81Hh8tCbPg13SfPA9vqW2xlisSsVDYbgRg6yjhAQ0bg57M7OUSg4IbdV1t4B2xjpLT12HdSxsdlCRw6SLFnk8qIbvEqRdH9Baes9jcQ6QhmcJ5Hp72KPv3mRgYDXjs3nKnX2P793uMew_-dfQ58jb7nGoS9pI3ooloYgsZV94Q-sdvRn-6hKbZ36WGODUys_3trdPuc9vjGTLXKOuEbqEdERCmPF0gxlgpNlGENwI5e_DJPsE7e1hyKYD7DgAuS-dMeZbrNkcGpFzYM9MJkMamcn3T9RgOTsIRgby1OWjqctS6gWaSMGDxdhy5cuVmHDKAztAJwfvLG3mel6h25DmVi9z-AQMzUAgAAAAAAAACcR6Lzxsl00pbDmapzPUJXt457zk-ZfeoqK9bDB35fBvkwPQEGH_bOL7172lAj8HW6C2HmAnixwR3n7ie-gQtRARcAAAAAAAAASSB3YXMgYm9ybiBiZWZvcmUgMjAwMC4AAGFigaRhYYcAAQIDBAUHYWIIYWOFAAECAwRhZAU"
+      },
+      "holder": "ppid:ut5p5SBOrku9wn-nQ_h0UFXeq2ibYzgu6VcNRoodggvPfno_z4--aWpf784MGkbT2",
+      "verifiableCredential": {
+        "type": "VerifiableCredential",
+        "proof": {
+          "type": "DataIntegrityProof",
+          "created": "2024-02-22T09:31:02.172Z",
+          "cryptosuite": "bbs-termwise-bound-signature-2023",
+          "proofPurpose": "assertionMethod",
+          "verificationMethod": "did:example:issuer2#bls12_381-g2-pub001"
+        },
+        "credentialSubject": {
+          "type": "Person",
+          "schema:birthDate": {
+            "id": "_:b7"
+          }
+        },
+        "expirationDate": "2026-01-01T00:00:00Z",
+        "issuanceDate": "2023-01-01T00:00:00Z",
+        "issuer": "did:example:issuer2"
+      },
+      "predicate": {
+        "type": "Predicate",
+        "circuit": "circ:lessThanPrvPub",
+        "private": [
+          {
+            "type": "PrivateVariable",
+            "val": "_:b7",
+            "var": "lesser"
+          }
+        ],
+        "public": [
+          {
+            "type": "PublicVariable",
+            "val": {
+              "type": "xsd:dateTime",
+              "@value": "2000-01-01T00:00:00Z"
+            },
+            "var": "greater"
+          }
+        ]
+      }
+    }
+  </script>
+</body>
+
+</html>

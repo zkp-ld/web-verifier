@@ -1367,20 +1367,20 @@
   resolved "https://registry.yarnpkg.com/@webcomponents/custom-elements/-/custom-elements-1.6.0.tgz#5ecde1c332464ff00612f51874484b78395d504d"
   integrity sha512-CqTpxOlUCPWRNUPZDxT5v2NnHXA4oox612iUGnmTUGQFhZ1Gkj8kirtl/2wcF6MqX7+PqqicZzOCBKKfIn0dww==
 
-"@zkp-ld/jsonld-proofs@0.11.0":
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/@zkp-ld/jsonld-proofs/-/jsonld-proofs-0.11.0.tgz#ce9b4e912387567e54fbd79ad2a99ee27d31adbb"
-  integrity sha512-t3BU5UYdKO7CPrAEme4rdYBQmrL3j+QRc8BX2QnIcsXRFCbvd4dCSPiuFfBK+NZTzB2y498cZyxAeouiQmrsZw==
+"@zkp-ld/jsonld-proofs@0.11.2":
+  version "0.11.2"
+  resolved "https://registry.yarnpkg.com/@zkp-ld/jsonld-proofs/-/jsonld-proofs-0.11.2.tgz#9c7d9795e34d9838b580518e2afe68db6fd44792"
+  integrity sha512-eSWauXFVXntNQRbX4nQ5BKb3hdIynd4siVkEkdi2x4NLTH+3vVGURKxc/GIutkJ8O3uVYlF39rkCsYrTWpwx5Q==
   dependencies:
-    "@zkp-ld/rdf-proofs-wasm" "0.13.1"
+    "@zkp-ld/rdf-proofs-wasm" "0.13.3"
     json-diff "git+https://github.com/Sequoia/json-diff.git#6085db5"
     jsonld "^8.3.2"
     nanoid "^5.0.6"
 
-"@zkp-ld/rdf-proofs-wasm@0.13.1":
-  version "0.13.1"
-  resolved "https://registry.yarnpkg.com/@zkp-ld/rdf-proofs-wasm/-/rdf-proofs-wasm-0.13.1.tgz#81026a6971f6d560fbe8229e89942ed449467a2e"
-  integrity sha512-fv+NRGf/iF32P99WBOJlyfmPenvqCrWgD4rvb4BVmpzJ35fZ2It4Zs54cHdjDAcoVPGCbKtF4EU+u7h+hi9JXg==
+"@zkp-ld/rdf-proofs-wasm@0.13.3":
+  version "0.13.3"
+  resolved "https://registry.yarnpkg.com/@zkp-ld/rdf-proofs-wasm/-/rdf-proofs-wasm-0.13.3.tgz#0eee15e802a22913bcf1951089a70131bc56b4c6"
+  integrity sha512-ypt/SmnFIKGbevpHgLotr1YIrsrHxsynHnRPpfd0i+jshw1tctba0wdmg+lADLwLwvNnaqO+HsFCvHSIYQpDQA==
 
 abab@^2.0.6:
   version "2.0.6"

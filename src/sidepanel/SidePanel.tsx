@@ -1,5 +1,5 @@
-import { Title, Container, Accordion, ThemeIcon, rem, JsonInput } from '@mantine/core';
-import { IconCheck, IconExclamationMark, IconPlus } from '@tabler/icons-react';
+import { Title, Container, Accordion, Code } from '@mantine/core';
+import { IconCircleCheck, IconExclamationCircle } from '@tabler/icons-react';
 import classes from './SidePanel.module.css';
 import { VerifiedVCVP } from '../types/EmbeddedVCVP';
 
@@ -18,33 +18,66 @@ export const SidePanel = (props: SidePanelProps) => {
 
         <Accordion
           chevronPosition="right"
-          defaultValue="reset-password"
           chevronSize={26}
           variant="separated"
-          disableChevronRotation
           styles={{ label: { color: 'var(--mantine-color-black)' }, item: { border: 0 } }}
-          chevron={
-            <ThemeIcon radius="xl" className={classes.gradient} size={26}>
-              <IconPlus style={{ width: rem(18), height: rem(18) }} stroke={1.5} />
-            </ThemeIcon>
-          }
         >
           {props.vcs.map((vc, i) => (
             <Accordion.Item className={classes.item} value={`VC${i}`} key={`VC${i}`}>
-              <Accordion.Control>{vc.message}</Accordion.Control>
+              <Accordion.Control
+                icon={
+                  vc.result ? (
+                    <IconCircleCheck className={classes.acceptIcon} />
+                  ) : (
+                    <IconExclamationCircle className={classes.rejectIcon} />
+                  )
+                }
+              >
+                {vc.message}
+              </Accordion.Control>
               <Accordion.Panel>
-                {vc.result ? <IconCheck /> : <IconExclamationMark />}
-                <JsonInput value={vc.jsonData ? JSON.stringify(vc.jsonData, null, 2) : ''} />
+                <Accordion
+                  chevronPosition="right"
+                  chevronSize={26}
+                  styles={{ label: { color: 'var(--mantine-color-black)' }, item: { border: 0 } }}
+                >
+                  <Accordion.Item value={`VCCODE${i}`} key={`VCCODE${i}`}>
+                    <Accordion.Control>code</Accordion.Control>
+                    <Accordion.Panel>
+                      <Code block>{vc.jsonData ? JSON.stringify(vc.jsonData, null, 2) : ''}</Code>
+                    </Accordion.Panel>
+                  </Accordion.Item>
+                </Accordion>
               </Accordion.Panel>
             </Accordion.Item>
           ))}
 
           {props.vps.map((vp, i) => (
             <Accordion.Item className={classes.item} value={`VP${i}`} key={`VP${i}`}>
-              <Accordion.Control>{vp.message}</Accordion.Control>
+              <Accordion.Control
+                icon={
+                  vp.result ? (
+                    <IconCircleCheck className={classes.acceptIcon} />
+                  ) : (
+                    <IconExclamationCircle className={classes.rejectIcon} />
+                  )
+                }
+              >
+                {vp.message}
+              </Accordion.Control>
               <Accordion.Panel>
-                {vp.result ? <IconCheck /> : <IconExclamationMark />}
-                <JsonInput value={vp.jsonData ? JSON.stringify(vp.jsonData, null, 2) : ''} />
+                <Accordion
+                  chevronPosition="right"
+                  chevronSize={26}
+                  styles={{ label: { color: 'var(--mantine-color-black)' }, item: { border: 0 } }}
+                >
+                  <Accordion.Item value={`VPCODE${i}`} key={`VPCODE${i}`}>
+                    <Accordion.Control>code</Accordion.Control>
+                    <Accordion.Panel>
+                      <Code block>{vp.jsonData ? JSON.stringify(vp.jsonData, null, 2) : ''}</Code>
+                    </Accordion.Panel>
+                  </Accordion.Item>
+                </Accordion>
               </Accordion.Panel>
             </Accordion.Item>
           ))}

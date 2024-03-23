@@ -13,11 +13,7 @@ export const verifyVCVPs = async (vcs: EmbeddedVCVP[], vps: EmbeddedVCVP[]) => (
   vps: await Promise.all(vps.map(verifyVP)),
 });
 
-export const verifyVCs = async (vcs: EmbeddedVCVP[]) => await Promise.all(vcs.map(verifyVC));
-
-export const verifyVPs = async (vps: EmbeddedVCVP[]) => await Promise.all(vps.map(verifyVP));
-
-export const verifyVC = async (vc: EmbeddedVCVP) => {
+const verifyVC = async (vc: EmbeddedVCVP) => {
   try {
     if (vc.jsonData == undefined)
       return {
@@ -44,7 +40,7 @@ export const verifyVC = async (vc: EmbeddedVCVP) => {
   }
 };
 
-export const verifyVP = async (vp: EmbeddedVCVP) => {
+const verifyVP = async (vp: EmbeddedVCVP) => {
   try {
     if (vp.jsonData == undefined)
       return {

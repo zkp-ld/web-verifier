@@ -1,4 +1,4 @@
-import { Title, Container, Accordion, Code } from '@mantine/core';
+import { Title, Container, Accordion, Code, Button, Space } from '@mantine/core';
 import { IconCircleCheck, IconExclamationCircle } from '@tabler/icons-react';
 import classes from './SidePanel.module.css';
 import { VerifiedVCVP } from '../types/EmbeddedVCVP';
@@ -6,16 +6,41 @@ import { VerifiedVCVP } from '../types/EmbeddedVCVP';
 export interface SidePanelProps {
   vcs: VerifiedVCVP[];
   vps: VerifiedVCVP[];
+  tab?: chrome.tabs.Tab;
 }
 
 export const SidePanel = (props: SidePanelProps) => {
+  const handleButtonClick = async () => {
+    if (props.tab?.id != undefined) {
+      await chrome.tabs.sendMessage(props.tab.id, {
+        type: 'VERIFY',
+      });
+    }
+  };
+  const handleMouseEnter = async (elementId: string) => {
+    if (props.tab?.id != undefined) {
+      await chrome.tabs.sendMessage(props.tab.id, {
+        type: 'MARK',
+        elementId,
+      });
+    }
+  };
+  const handleMouseLeave = async (elementId: string) => {
+    if (props.tab?.id != undefined) {
+      await chrome.tabs.sendMessage(props.tab.id, {
+        type: 'UNMARK',
+        elementId,
+      });
+    }
+  };
+
   return (
     <div className={classes.wrapper}>
       <Container size="sm">
-        <Title ta="center" className={classes.title}>
-          Your Verifier
-        </Title>
-
+        <Button fullWidth onClick={() => handleButtonClick()}>
+          Verify
+        </Button>
+        <Space h="md" />
         <Accordion
           chevronPosition="right"
           chevronSize={26}
@@ -23,7 +48,13 @@ export const SidePanel = (props: SidePanelProps) => {
           styles={{ label: { color: 'var(--mantine-color-black)' }, item: { border: 0 } }}
         >
           {props.vcs.map((vc, i) => (
-            <Accordion.Item className={classes.item} value={`VC${i}`} key={`VC${i}`}>
+            <Accordion.Item
+              className={classes.item}
+              value={vc.elementId}
+              key={vc.elementId}
+              onMouseEnter={() => handleMouseEnter(vc.elementId)}
+              onMouseLeave={() => handleMouseLeave(vc.elementId)}
+            >
               <Accordion.Control
                 icon={
                   vc.result ? (
@@ -53,7 +84,13 @@ export const SidePanel = (props: SidePanelProps) => {
           ))}
 
           {props.vps.map((vp, i) => (
-            <Accordion.Item className={classes.item} value={`VP${i}`} key={`VP${i}`}>
+            <Accordion.Item
+              className={classes.item}
+              value={vp.elementId}
+              key={vp.elementId}
+              onMouseEnter={() => handleMouseEnter(vp.elementId)}
+              onMouseLeave={() => handleMouseLeave(vp.elementId)}
+            >
               <Accordion.Control
                 icon={
                   vp.result ? (

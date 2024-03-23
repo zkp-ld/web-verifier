@@ -15,7 +15,9 @@ root.render(
 );
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.type === 'VERIFY') {
+  const tab = sender.tab;
+
+  if (request.type === 'VERIFY' && tab != undefined) {
     const vcs = request.vcs != null ? request.vcs : [];
     const vps = request.vps != null ? request.vps : [];
 
@@ -23,7 +25,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       root.render(
         <React.StrictMode>
           <MantineProvider>
-            <SidePanel vcs={vcs} vps={vps} />
+            <SidePanel vcs={vcs} vps={vps} tab={tab} />
           </MantineProvider>
         </React.StrictMode>
       );

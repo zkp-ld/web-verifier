@@ -1,4 +1,4 @@
-import { Title, Container, Accordion, Code, Button, Space } from '@mantine/core';
+import { Container, Accordion, Code, Button, Space } from '@mantine/core';
 import { IconCircleCheck, IconExclamationCircle } from '@tabler/icons-react';
 import classes from './SidePanel.module.css';
 import { VerifiedVCVP } from '../types/EmbeddedVCVP';

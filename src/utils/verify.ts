@@ -1,10 +1,11 @@
+import * as jsonld from 'jsonld';
 import { VC, verify, verifyProof } from '@zkp-ld/jsonld-proofs';
 import didDocs from './didDocs.json';
 import { customDocumentLoader } from './documentLoader';
 import { CONTEXTS } from './contexts';
 import { EmbeddedVCVP } from '../types/EmbeddedVCVP';
 
-const DEFAULT_DOMAIN = 'example.org';
+const SECURITY = 'https://w3id.org/security#';
 
 const documentLoader = customDocumentLoader(new Map(CONTEXTS.map(([k, v]) => [k, JSON.parse(v)])));
 
@@ -49,9 +50,15 @@ const verifyVP = async (vp: EmbeddedVCVP) => {
         error: 'VP is empty',
       };
 
+    // auto-detect domain
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const extendedVP: any = await jsonld.expand(vp.jsonData, { documentLoader, safe: true });
+    console.log(`extendedVP: ${JSON.stringify(extendedVP, null, 2)}`);
+    const domain = extendedVP?.[0]?.[`${SECURITY}proof`]?.[0]?.['@graph']?.[0]?.[`${SECURITY}domain`]?.[0]?.['@value'];
+
     const result = await verifyProof(vp.jsonData, didDocs, documentLoader, {
       challenge: vp.message,
-      domain: DEFAULT_DOMAIN,
+      domain,
     });
 
     return {

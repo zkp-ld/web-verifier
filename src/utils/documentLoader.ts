@@ -4,7 +4,10 @@ import { Url, RemoteDocument, JsonLd } from 'jsonld/jsonld-spec';
 
 export const customDocumentLoader =
   (documents: Map<Url, JsonLd>, allowFetch?: boolean) =>
-  async (url: Url): Promise<RemoteDocument> => {
+  async (
+    url: Url,
+    _callback: (err: Error, remoteDoc: RemoteDocument) => void
+  ): Promise<RemoteDocument> => {
     const context = documents.get(url);
     if (context) {
       return {

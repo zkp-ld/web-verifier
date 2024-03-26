@@ -49,7 +49,7 @@
     "@types/chrome": "^0.0.262",
     "@types/fs-extra": "^11.0.1",
     "@types/jest": "^29.5.2",
-    "@types/jsonld": "^1.5.13",
+    "@types/jsonld": "./@types/jsonld",
     "@types/lodash-es": "^4.17.7",
     "@types/react": "^18.2.12",
     "@types/react-dom": "^18.2.5",

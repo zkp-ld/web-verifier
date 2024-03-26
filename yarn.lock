@@ -1163,10 +1163,8 @@
   dependencies:
     "@types/node" "*"
 
-"@types/jsonld@^1.5.13":
-  version "1.5.13"
-  resolved "https://registry.yarnpkg.com/@types/jsonld/-/jsonld-1.5.13.tgz#32cb7bf8893ff811036b5025edaf626593a6f36f"
-  integrity sha512-n7fUU6W4kSYK8VQlf/LsE9kddBHPKhODoVOjsZswmve+2qLwBy6naWxs/EiuSZN9NU0N06Ra01FR+j87C62T0A==
+"@types/jsonld@./@types/jsonld":
+  version "0.0.0"
 
 "@types/lodash-es@^4.17.7":
   version "4.17.12"

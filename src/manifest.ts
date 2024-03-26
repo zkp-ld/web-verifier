@@ -7,7 +7,7 @@ import { version } from '../package.json';
 
 const manifest = defineManifest(async (env) => ({
   manifest_version: 3,
-  name: `${env.mode === 'development' ? '[Dev] ' : ''}Your Verifier`,
+  name: `${env.mode === 'development' ? '[Dev] ' : ''}YourVerifier`,
   description:
     'Enable verifying HTML documents using verifiable credentials and verifiable presentations',
   version,
@@ -34,7 +34,7 @@ const manifest = defineManifest(async (env) => ({
   side_panel: {
     default_path: 'sidepanel/sidepanel.html',
   },
-  permissions: ['storage', 'activeTab', 'scripting', 'sidePanel'],
+  permissions: ['activeTab', 'sidePanel'],
   content_security_policy: {
     extension_pages: "script-src 'self' 'wasm-unsafe-eval'",
   },

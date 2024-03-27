@@ -13,7 +13,13 @@ export * from "./jsonld";
 type MimeNQuad = "application/n-quads";
 type RdfDataSet = object; // Placeholder
 type Callback<T> = (err: Error, res: T) => void;
+type DocumentLoader = (url: Url) => Promise<RemoteDocument>;
 
+export namespace documentLoaders {
+    const node: () => DocumentLoader;
+    const xhr: () => DocumentLoader;
+}
+  
 /*
  * Declares interfaces used to type the methods options object.
  * The interfaces are usefull to avoid code replication.
@@ -21,9 +27,7 @@ type Callback<T> = (err: Error, res: T) => void;
 
 export namespace Options {
     interface DocLoader {
-        documentLoader?:
-            | ((url: Url, callback: (err: Error, remoteDoc: RemoteDocument) => void) => Promise<RemoteDocument>)
-            | undefined;
+        documentLoader?: DocumentLoader;
     }
 
     interface Safe {

@@ -18,8 +18,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const tab = sender.tab;
 
   if (request.type === 'VERIFY' && tab != undefined) {
-    const vcs = request.vcs != null ? request.vcs : [];
-    const vps = request.vps != null ? request.vps : [];
+    const vcs = request.vcs ?? [];
+    const vps = request.vps ?? [];
 
     verifyVCVPs(vcs, vps).then(({ vcs, vps }) => {
       root.render(

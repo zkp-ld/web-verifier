@@ -37,5 +37,6 @@ export interface VPMetadata {
   created?: string;
   domain?: string;
   challenge?: string;
-  vcs?: VCMetadata[];
+  boundVCs?: VCMetadata[];
+  unboundVCs?: VCMetadata[];
 }

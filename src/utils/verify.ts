@@ -5,6 +5,12 @@ import { customDocumentLoader } from './documentLoader';
 import { CONTEXTS } from './contexts';
 import { EmbeddedVCVP, VCMetadata, VPMetadata, VerifiedVC, VerifiedVP } from '../types/VCVP';
 
+const BBS_BOUND = 'bbs-termwise-bound-signature-2023';
+const BBS_UNBOUND = 'bbs-termwise-signature-2023';
+// JSON-LD keywords
+const GRAPH = '@graph';
+const ID = '@id';
+const VALUE = '@value';
 // RDF Vocabularies
 const CREDS = 'https://www.w3.org/2018/credentials#';
 const CREDS_ISSUER = `${CREDS}issuer`;
@@ -17,6 +23,7 @@ const SECURITY = 'https://w3id.org/security#';
 const SECURITY_PROOF = `${SECURITY}proof`;
 const SECURITY_DOMAIN = `${SECURITY}domain`;
 const SECURITY_CHALLENGE = `${SECURITY}challenge`;
+const SECURITY_CRYPTOSUITE = `${SECURITY}cryptosuite`;
 const DCTERMS = 'http://purl.org/dc/terms/';
 const DCTERMS_CREATED = `${DCTERMS}created`;
 
@@ -103,13 +110,13 @@ const getVCmetadata = (vc: any): VCMetadata => ({
   subject: getCredentialSubject(vc),
 });
 
-const getIssuer = (vc: any): string | undefined => vc?.[0]?.[CREDS_ISSUER]?.[0]?.['@id'];
+const getIssuer = (vc: any): string | undefined => vc?.[0]?.[CREDS_ISSUER]?.[0]?.[ID];
 
 const getIssuanceDate = (vc: any): string | undefined =>
-  vc?.[0]?.[CREDS_ISSUANCE_DATE]?.[0]?.['@value'];
+  vc?.[0]?.[CREDS_ISSUANCE_DATE]?.[0]?.[VALUE];
 
 const getExpirationDate = (vc: any): string | undefined =>
-  vc?.[0]?.[CREDS_EXPIRATION_DATE]?.[0]?.['@value'];
+  vc?.[0]?.[CREDS_EXPIRATION_DATE]?.[0]?.[VALUE];
 
 const getCredentialSubject = (vc: any): string | undefined => vc?.[0]?.[CREDS_CREDENTIAL_SUBJECT];
 
@@ -119,27 +126,37 @@ const getVPmetadata = (vp: any): VPMetadata => ({
   challenge: getChallenge(vp),
   holder: getHolder(vp),
   created: getCreated(vp),
-  vcs: getVCs(vp),
+  ...getVCs(vp),
 });
 
 const getDomain = (vp: any): string | undefined =>
-  vp?.[0]?.[SECURITY_PROOF]?.[0]?.['@graph']?.[0]?.[SECURITY_DOMAIN]?.[0]?.['@value'];
+  vp?.[0]?.[SECURITY_PROOF]?.[0]?.[GRAPH]?.[0]?.[SECURITY_DOMAIN]?.[0]?.[VALUE];
 
 const getChallenge = (vp: any): string | undefined =>
-  vp?.[0]?.[SECURITY_PROOF]?.[0]?.['@graph']?.[0]?.[SECURITY_CHALLENGE]?.[0]?.['@value'];
+  vp?.[0]?.[SECURITY_PROOF]?.[0]?.[GRAPH]?.[0]?.[SECURITY_CHALLENGE]?.[0]?.[VALUE];
 
 const getHolder = (vp: any): string | undefined => {
-  const holderWithPrefix = vp?.[0]?.[CREDS_HOLDER]?.[0]?.['@id'];
+  const holderWithPrefix = vp?.[0]?.[CREDS_HOLDER]?.[0]?.[ID];
 
   return holderWithPrefix?.replace(PPID, 'ppid:');
 };
 
 const getCreated = (vp: any): string | undefined =>
-  vp?.[0]?.[SECURITY_PROOF]?.[0]?.['@graph']?.[0]?.[DCTERMS_CREATED]?.[0]?.['@value'];
+  vp?.[0]?.[SECURITY_PROOF]?.[0]?.[GRAPH]?.[0]?.[DCTERMS_CREATED]?.[0]?.[VALUE];
 
-const getVCs = (vp: any): VCMetadata[] => {
+const getVCs = (vp: any) => {
   const vcGraphs = vp?.[0]?.[CREDS_VC];
-  const vcs = vcGraphs.map((vpGraph: any) => vpGraph?.['@graph']);
+  const vcs = vcGraphs.map((vpGraph: any) => vpGraph?.[GRAPH]);
 
-  return vcs.map(getVCmetadata);
+  const boundVCs = vcs
+    ?.filter((vc: any) => getProofCryptosuite(vc) === BBS_BOUND)
+    .map(getVCmetadata);
+  const unboundVCs = vcs
+    ?.filter((vc: any) => getProofCryptosuite(vc) === BBS_UNBOUND)
+    .map(getVCmetadata);
+
+  return { boundVCs, unboundVCs };
 };
+
+const getProofCryptosuite = (vc: any) =>
+  vc?.[0]?.[SECURITY_PROOF]?.[0]?.[GRAPH]?.[0]?.[SECURITY_CRYPTOSUITE]?.[0]?.[VALUE];

@@ -23,9 +23,15 @@ export const VPAttribute = ({ vpMetadata }: VPAttributeProps) => {
       {vpMetadata.created && (
         <Attribute icon={IconCalendar} title="signed on" description={vpMetadata.created} />
       )}
-      {vpMetadata.vcs?.map((vcMetadata, i) => (
+      {vpMetadata.boundVCs?.map((vcMetadata, i) => (
         <>
-          <Text fw={700}>with attached credential {i}:</Text>
+          <Text fw={700}>with attached bound credential {i}:</Text>
+          <VCAttribute vcMetadata={vcMetadata} key={i} />
+        </>
+      ))}
+      {vpMetadata.unboundVCs?.map((vcMetadata, i) => (
+        <>
+          <Text fw={700}>with attached unbound credential {i}:</Text>
           <VCAttribute vcMetadata={vcMetadata} key={i} />
         </>
       ))}

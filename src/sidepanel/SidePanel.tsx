@@ -20,7 +20,7 @@ export const SidePanel = (props: SidePanelProps) => {
   const handleMouseEnter = async (elementId: string) => {
     if (props.tab?.id != undefined) {
       await chrome.tabs.sendMessage(props.tab.id, {
-        type: 'MARK',
+        type: 'HIGHLIGHT',
         elementId,
       });
     }
@@ -28,7 +28,7 @@ export const SidePanel = (props: SidePanelProps) => {
   const handleMouseLeave = async (elementId: string) => {
     if (props.tab?.id != undefined) {
       await chrome.tabs.sendMessage(props.tab.id, {
-        type: 'UNMARK',
+        type: 'DEHIGHLIGHT',
         elementId,
       });
     }

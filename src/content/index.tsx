@@ -80,14 +80,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     extractVCVPs();
   } else {
     const elementId = request.elementId;
-    if (request.type === 'MARK' && elementId != undefined) {
+    if (request.type === 'HIGHLIGHT' && elementId != undefined) {
       const element = document.querySelector<HTMLElement>(
         `[data-id-for-verification="${elementId}"]`
       );
       if (element != undefined) {
         element.classList.add(classes.selected);
       }
-    } else if (request.type === 'UNMARK' && elementId != undefined) {
+    } else if (request.type === 'DEHIGHLIGHT' && elementId != undefined) {
       const elementId = request.elementId;
       const element = document.querySelector<HTMLElement>(
         `[data-id-for-verification="${elementId}"]`

@@ -1,3 +1,4 @@
+import classes from './content.module.css';
 import { EmbeddedVCVP } from '../types/EmbeddedVCVP';
 import { nanoid } from 'nanoid';
 
@@ -61,27 +62,22 @@ const getRemoteJSONs = async (key: string) => {
   return jsons;
 };
 
-const verify = async () => {
+const extractVCVPs = async () => {
   const vcs = await getJSONs(VC);
   const vps = await getJSONs(VP);
-
-  console.log(vcs);
-  console.log(vps);
 
   const response = await chrome.runtime.sendMessage({
     type: 'VERIFY',
     vcs,
     vps,
   });
-
-  console.log(response);
 };
 
-(async () => await verify())();
+(async () => await extractVCVPs())();
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.type === 'VERIFY') {
-    verify();
+  if (request.type === 'EXTRACT') {
+    extractVCVPs();
   } else {
     const elementId = request.elementId;
     if (request.type === 'MARK' && elementId != undefined) {
@@ -89,7 +85,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         `[data-id-for-verification="${elementId}"]`
       );
       if (element != undefined) {
-        element.style.background = 'linear-gradient(transparent 40%, #aaddaa 0%)'; // TODO: use class instead of direct modification
+        element.classList.add(classes.selected);
       }
     } else if (request.type === 'UNMARK' && elementId != undefined) {
       const elementId = request.elementId;
@@ -97,7 +93,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         `[data-id-for-verification="${elementId}"]`
       );
       if (element != undefined) {
-        element.style.background = ''; // TODO: use class instead of direct modification
+        element.classList.remove(classes.selected);
       }
     }
   }

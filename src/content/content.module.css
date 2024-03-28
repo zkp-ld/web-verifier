@@ -1,0 +1,7 @@
+:root {
+  --mantine-color-blue-6: #228be6;
+}
+
+.selected {
+  background: linear-gradient(transparent 40%, var(--mantine-color-blue-6));
+}

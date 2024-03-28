@@ -13,7 +13,7 @@ export const SidePanel = (props: SidePanelProps) => {
   const handleButtonClick = async () => {
     if (props.tab?.id != undefined) {
       await chrome.tabs.sendMessage(props.tab.id, {
-        type: 'VERIFY',
+        type: 'EXTRACT',
       });
     }
   };

@@ -1,11 +1,14 @@
-import { Container, Accordion, Code, Button, Space } from '@mantine/core';
-import { IconCircleCheck, IconExclamationCircle } from '@tabler/icons-react';
+import { Container, Accordion, Code, Button, Space, Text, Stack } from '@mantine/core';
+import { IconCircleCheck, IconExclamationCircle, IconExclamationMark } from '@tabler/icons-react';
 import classes from './SidePanel.module.css';
-import { VerifiedVCVP } from '../types/EmbeddedVCVP';
+import { VerifiedVC, VerifiedVP } from '../types/VCVP';
+import { Attribute } from './Attributes';
+import { VCAttribute } from './VCAttribute';
+import { VPAttribute } from './VPAttribute';
 
 export interface SidePanelProps {
-  vcs: VerifiedVCVP[];
-  vps: VerifiedVCVP[];
+  vcs: VerifiedVC[];
+  vps: VerifiedVP[];
   tab?: chrome.tabs.Tab;
 }
 
@@ -45,9 +48,10 @@ export const SidePanel = (props: SidePanelProps) => {
           chevronPosition="right"
           chevronSize={26}
           variant="separated"
+          multiple
           styles={{ label: { color: 'var(--mantine-color-black)' }, item: { border: 0 } }}
         >
-          {props.vcs.map((vc, i) => (
+          {props.vcs.map((vc) => (
             <Accordion.Item
               className={classes.item}
               value={vc.elementId}
@@ -67,23 +71,44 @@ export const SidePanel = (props: SidePanelProps) => {
                 {vc.message}
               </Accordion.Control>
               <Accordion.Panel>
-                <Accordion
-                  chevronPosition="right"
-                  chevronSize={26}
-                  styles={{ label: { color: 'var(--mantine-color-black)' }, item: { border: 0 } }}
-                >
-                  <Accordion.Item value={`VCCODE${i}`} key={`VCCODE${i}`}>
-                    <Accordion.Control>code</Accordion.Control>
-                    <Accordion.Panel>
-                      <Code block>{vc.jsonData ? JSON.stringify(vc.jsonData, null, 2) : ''}</Code>
-                    </Accordion.Panel>
-                  </Accordion.Item>
-                </Accordion>
+                <Stack>
+                  <Text fw={700}>
+                    with the following{' '}
+                    {vc.result ? (
+                      'valid'
+                    ) : (
+                      <Text span fw={700} td="underline">
+                        invalid
+                      </Text>
+                    )}{' '}
+                    signature:
+                  </Text>
+                  {vc.result || (
+                    <Attribute
+                      icon={IconExclamationMark}
+                      title="verification error"
+                      description={JSON.parse(JSON.stringify(vc.error)) ?? 'unknown error'}
+                    />
+                  )}
+                  {vc.metadata && <VCAttribute vcMetadata={vc.metadata} />}
+                  <Accordion
+                    chevronPosition="right"
+                    chevronSize={26}
+                    styles={{ label: { color: 'var(--mantine-color-black)' }, item: { border: 0 } }}
+                  >
+                    <Accordion.Item value={vc.elementId} key={vc.elementId}>
+                      <Accordion.Control>raw data</Accordion.Control>
+                      <Accordion.Panel>
+                        <Code block>{vc.jsonData ? JSON.stringify(vc.jsonData, null, 2) : ''}</Code>
+                      </Accordion.Panel>
+                    </Accordion.Item>
+                  </Accordion>
+                </Stack>
               </Accordion.Panel>
             </Accordion.Item>
           ))}
 
-          {props.vps.map((vp, i) => (
+          {props.vps.map((vp) => (
             <Accordion.Item
               className={classes.item}
               value={vp.elementId}
@@ -103,18 +128,39 @@ export const SidePanel = (props: SidePanelProps) => {
                 {vp.message}
               </Accordion.Control>
               <Accordion.Panel>
-                <Accordion
-                  chevronPosition="right"
-                  chevronSize={26}
-                  styles={{ label: { color: 'var(--mantine-color-black)' }, item: { border: 0 } }}
-                >
-                  <Accordion.Item value={`VPCODE${i}`} key={`VPCODE${i}`}>
-                    <Accordion.Control>code</Accordion.Control>
-                    <Accordion.Panel>
-                      <Code block>{vp.jsonData ? JSON.stringify(vp.jsonData, null, 2) : ''}</Code>
-                    </Accordion.Panel>
-                  </Accordion.Item>
-                </Accordion>
+                <Stack>
+                  <Text fw={700}>
+                    with the following{' '}
+                    {vp.result ? (
+                      'valid'
+                    ) : (
+                      <Text span fw={700} td="underline">
+                        invalid
+                      </Text>
+                    )}{' '}
+                    signature:
+                  </Text>
+                  {vp.result || (
+                    <Attribute
+                      icon={IconExclamationMark}
+                      title="verification error"
+                      description={JSON.parse(JSON.stringify(vp.error)) ?? 'unknown error'}
+                    />
+                  )}
+                  {vp.metadata && <VPAttribute vpMetadata={vp.metadata} />}
+                  <Accordion
+                    chevronPosition="right"
+                    chevronSize={26}
+                    styles={{ label: { color: 'var(--mantine-color-black)' }, item: { border: 0 } }}
+                  >
+                    <Accordion.Item value={vp.elementId} key={vp.elementId}>
+                      <Accordion.Control>raw data</Accordion.Control>
+                      <Accordion.Panel>
+                        <Code block>{vp.jsonData ? JSON.stringify(vp.jsonData, null, 2) : ''}</Code>
+                      </Accordion.Panel>
+                    </Accordion.Item>
+                  </Accordion>
+                </Stack>
               </Accordion.Panel>
             </Accordion.Item>
           ))}

@@ -1,5 +1,5 @@
 import classes from './content.module.css';
-import { EmbeddedVCVP } from '../types/EmbeddedVCVP';
+import { EmbeddedVCVP } from '../types/VCVP';
 import { nanoid } from 'nanoid';
 
 const VC = 'verifiable-credential';

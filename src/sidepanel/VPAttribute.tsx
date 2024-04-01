@@ -1,7 +1,7 @@
 import { VPMetadata } from '../types/VCVP';
 import { Attribute } from './Attributes';
 import { VCAttribute } from './VCAttribute';
-import { Code, Text } from '@mantine/core';
+import { Text } from '@mantine/core';
 import { IconCalendar, IconMessage, IconUserEdit } from '@tabler/icons-react';
 
 interface VPAttributeProps {

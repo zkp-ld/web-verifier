@@ -1,5 +1,10 @@
-import { Container, Accordion, Code, Button, Space, Text, Stack } from '@mantine/core';
-import { IconCircleCheck, IconExclamationCircle, IconExclamationMark } from '@tabler/icons-react';
+import { Container, Accordion, Code, Button, Space, Text, Stack, Tooltip } from '@mantine/core';
+import {
+  IconCircleCheck,
+  IconCircleX,
+  IconExclamationCircle,
+  IconExclamationMark,
+} from '@tabler/icons-react';
 import classes from './SidePanel.module.css';
 import { VerifiedVC, VerifiedVP } from '../types/VCVP';
 import { Attribute } from './Attributes';
@@ -62,9 +67,16 @@ export const SidePanel = (props: SidePanelProps) => {
               <Accordion.Control
                 icon={
                   vc.result ? (
-                    <IconCircleCheck className={classes.acceptIcon} />
+                    <Tooltip
+                      multiline
+                      label="The attached signature is correct. Check that the signed credential indeed asserts the content."
+                    >
+                      <IconExclamationCircle className={classes.warningIcon} />
+                    </Tooltip>
                   ) : (
-                    <IconExclamationCircle className={classes.rejectIcon} />
+                    <Tooltip label="Failed to verify the signature.">
+                      <IconCircleX className={classes.rejectIcon} />
+                    </Tooltip>
                   )
                 }
               >
@@ -73,7 +85,7 @@ export const SidePanel = (props: SidePanelProps) => {
               <Accordion.Panel>
                 <Stack>
                   <Text fw={700}>
-                    with the following{' '}
+                    The above content comes with the following{' '}
                     {vc.result ? (
                       'valid'
                     ) : (
@@ -119,9 +131,22 @@ export const SidePanel = (props: SidePanelProps) => {
               <Accordion.Control
                 icon={
                   vp.result ? (
-                    <IconCircleCheck className={classes.acceptIcon} />
+                    vp.message === vp.metadata?.challenge ? (
+                      <Tooltip label="The content has been correctly signed.">
+                        <IconCircleCheck className={classes.acceptIcon} />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        multiline
+                        label="The attached signature is correct. Check that the signed credential indeed asserts the content."
+                      >
+                        <IconExclamationCircle className={classes.warningIcon} />
+                      </Tooltip>
+                    )
                   ) : (
-                    <IconExclamationCircle className={classes.rejectIcon} />
+                    <Tooltip label="Failed to verify the signature.">
+                      <IconCircleX className={classes.rejectIcon} />
+                    </Tooltip>
                   )
                 }
               >
@@ -130,7 +155,7 @@ export const SidePanel = (props: SidePanelProps) => {
               <Accordion.Panel>
                 <Stack>
                   <Text fw={700}>
-                    with the following{' '}
+                    The above content comes with the following{' '}
                     {vp.result ? (
                       'valid'
                     ) : (

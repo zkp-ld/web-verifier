@@ -65,6 +65,10 @@
   color: var(--mantine-color-blue-6);
 }
 
+.warningIcon {
+  color: var(--mantine-color-yellow-6);
+}
+
 .rejectIcon {
-  color: var(--mantine-color-red-4);
+  color: var(--mantine-color-red-6);
 }

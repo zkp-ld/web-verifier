@@ -9,6 +9,12 @@ interface VCAttributeProps {
 export const VCAttribute = ({ vcMetadata }: VCAttributeProps) => {
   return (
     <>
+      <Attribute
+        icon={IconUser}
+        title="subject"
+        description={JSON.stringify(vcMetadata.subject, null, 2)}
+        code
+      />
       {vcMetadata.issuer && (
         <Attribute icon={IconHomeEdit} title="issued by" description={vcMetadata.issuer} />
       )}
@@ -22,12 +28,6 @@ export const VCAttribute = ({ vcMetadata }: VCAttributeProps) => {
           description={vcMetadata.expirationDate}
         />
       )}
-      <Attribute
-        icon={IconUser}
-        title="subject"
-        description={JSON.stringify(vcMetadata.subject, null, 2)}
-        code
-      />
     </>
   );
 };

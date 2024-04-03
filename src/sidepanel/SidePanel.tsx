@@ -109,7 +109,7 @@ export const SidePanel = (props: SidePanelProps) => {
                     styles={{ label: { color: 'var(--mantine-color-black)' }, item: { border: 0 } }}
                   >
                     <Accordion.Item value={vc.elementId} key={vc.elementId}>
-                      <Accordion.Control>raw data</Accordion.Control>
+                      <Accordion.Control>verifiable credential</Accordion.Control>
                       <Accordion.Panel>
                         <Code block>{vc.jsonData ? JSON.stringify(vc.jsonData, null, 2) : ''}</Code>
                       </Accordion.Panel>
@@ -179,7 +179,7 @@ export const SidePanel = (props: SidePanelProps) => {
                     styles={{ label: { color: 'var(--mantine-color-black)' }, item: { border: 0 } }}
                   >
                     <Accordion.Item value={vp.elementId} key={vp.elementId}>
-                      <Accordion.Control>raw data</Accordion.Control>
+                      <Accordion.Control>verifiable presentation</Accordion.Control>
                       <Accordion.Panel>
                         <Code block>{vp.jsonData ? JSON.stringify(vp.jsonData, null, 2) : ''}</Code>
                       </Accordion.Panel>

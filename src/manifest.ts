@@ -17,6 +17,7 @@ const manifest = defineManifest(async (env) => ({
       js: ['content/index.tsx'],
     },
   ],
+  options_page: 'options/options.html',
   action: {
     default_icon: {
       '16': 'images/extension_16.png',
@@ -34,7 +35,7 @@ const manifest = defineManifest(async (env) => ({
   side_panel: {
     default_path: 'sidepanel/sidepanel.html',
   },
-  permissions: ['activeTab', 'sidePanel'],
+  permissions: ['activeTab', 'sidePanel', 'storage'],
   content_security_policy: {
     extension_pages: "script-src 'self' 'wasm-unsafe-eval'",
   },

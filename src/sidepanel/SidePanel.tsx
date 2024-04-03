@@ -1,15 +1,27 @@
-import { Container, Accordion, Code, Button, Space, Text, Stack, Tooltip } from '@mantine/core';
+import {
+  Container,
+  Accordion,
+  Code,
+  Space,
+  Text,
+  Stack,
+  Tooltip,
+  ActionIcon,
+  Group,
+} from '@mantine/core';
 import {
   IconCircleCheck,
   IconCircleX,
   IconExclamationCircle,
   IconExclamationMark,
+  IconReload,
+  IconSettings,
 } from '@tabler/icons-react';
 import classes from './SidePanel.module.css';
 import { VerifiedVC, VerifiedVP } from '../types/VCVP';
-import { Attribute } from './Attributes';
-import { VCAttribute } from './VCAttribute';
-import { VPAttribute } from './VPAttribute';
+import Attribute from './Attribute';
+import VCAttribute from './VCAttribute';
+import VPAttribute from './VPAttribute';
 
 export interface SidePanelProps {
   vcs: VerifiedVC[];
@@ -17,13 +29,16 @@ export interface SidePanelProps {
   tab?: chrome.tabs.Tab;
 }
 
-export const SidePanel = (props: SidePanelProps) => {
-  const handleButtonClick = async () => {
+const SidePanel = (props: SidePanelProps) => {
+  const handleReloadClick = async () => {
     if (props.tab?.id != undefined) {
       await chrome.tabs.sendMessage(props.tab.id, {
         type: 'EXTRACT',
       });
     }
+  };
+  const handleOptionClick = () => {
+    chrome.runtime.openOptionsPage();
   };
   const handleMouseEnter = async (elementId: string) => {
     if (props.tab?.id != undefined) {
@@ -45,9 +60,14 @@ export const SidePanel = (props: SidePanelProps) => {
   return (
     <div className={classes.wrapper}>
       <Container size="sm">
-        <Button fullWidth onClick={() => handleButtonClick()}>
-          Verify
-        </Button>
+        <Group justify="center">
+          <ActionIcon size="lg" onClick={() => handleReloadClick()}>
+            <IconReload style={{ width: '70%', height: '70%' }} stroke={1.5} />
+          </ActionIcon>
+          <ActionIcon size="lg" onClick={() => handleOptionClick()}>
+            <IconSettings style={{ width: '70%', height: '70%' }} stroke={1.5} />
+          </ActionIcon>
+        </Group>
         <Space h="md" />
         <Accordion
           chevronPosition="right"
@@ -194,3 +214,5 @@ export const SidePanel = (props: SidePanelProps) => {
     </div>
   );
 };
+
+export default SidePanel;

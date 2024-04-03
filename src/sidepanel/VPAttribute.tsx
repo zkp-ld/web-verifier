@@ -1,6 +1,6 @@
 import { VPMetadata } from '../types/VCVP';
-import { Attribute } from './Attributes';
-import { VCAttribute } from './VCAttribute';
+import Attribute from './Attribute';
+import VCAttribute from './VCAttribute';
 import { Text } from '@mantine/core';
 import { IconCalendar, IconMessage, IconUserEdit } from '@tabler/icons-react';
 
@@ -8,8 +8,7 @@ interface VPAttributeProps {
   vpMetadata: VPMetadata;
 }
 
-export const VPAttribute = ({ vpMetadata }: VPAttributeProps) => {
-  console.dir(vpMetadata);
+const VPAttribute = ({ vpMetadata }: VPAttributeProps) => {
   return (
     <>
       <Attribute
@@ -42,3 +41,5 @@ export const VPAttribute = ({ vpMetadata }: VPAttributeProps) => {
     </>
   );
 };
+
+export default VPAttribute;

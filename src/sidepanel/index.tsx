@@ -1,7 +1,7 @@
 import '@mantine/core/styles.css';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { SidePanel } from './SidePanel';
+import SidePanel from './SidePanel';
 import { MantineProvider } from '@mantine/core';
 import { verifyVCVPs } from '../utils/verify';
 
@@ -21,14 +21,22 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     const vcs = request.vcs ?? [];
     const vps = request.vps ?? [];
 
-    verifyVCVPs(vcs, vps).then(({ vcs, vps }) => {
-      root.render(
-        <React.StrictMode>
-          <MantineProvider>
-            <SidePanel vcs={vcs} vps={vps} tab={tab} />
-          </MantineProvider>
-        </React.StrictMode>
-      );
+    chrome.storage.local.get('didDocs').then((data) => {
+      try {
+        const didDocsStr = data.didDocs ?? '{}';
+        const didDocs = JSON.parse(didDocsStr);
+        verifyVCVPs(vcs, vps, didDocs).then(({ vcs, vps }) => {
+          root.render(
+            <React.StrictMode>
+              <MantineProvider>
+                <SidePanel vcs={vcs} vps={vps} tab={tab} />
+              </MantineProvider>
+            </React.StrictMode>
+          );
+        });
+      } catch (err) {
+        console.error(err);
+      }
     });
   }
 });

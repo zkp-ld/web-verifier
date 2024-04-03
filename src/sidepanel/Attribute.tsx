@@ -1,6 +1,6 @@
 import { Text, Box, rem, Code } from '@mantine/core';
 import { IconUser } from '@tabler/icons-react';
-import classes from './Attributes.module.css';
+import classes from './Attribute.module.css';
 
 interface AttributeProps extends Omit<React.ComponentPropsWithoutRef<'div'>, 'title'> {
   icon: typeof IconUser;
@@ -9,7 +9,7 @@ interface AttributeProps extends Omit<React.ComponentPropsWithoutRef<'div'>, 'ti
   code?: boolean;
 }
 
-export const Attribute = ({ icon: Icon, title, description, code, ...others }: AttributeProps) => {
+const Attribute = ({ icon: Icon, title, description, code, ...others }: AttributeProps) => {
   return (
     <div {...others}>
       <div className={classes.wrapper}>
@@ -30,3 +30,5 @@ export const Attribute = ({ icon: Icon, title, description, code, ...others }: A
     </div>
   );
 };
+
+export default Attribute;

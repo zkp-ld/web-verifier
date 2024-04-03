@@ -1,12 +1,12 @@
 import { IconCalendar, IconCalendarCancel, IconHomeEdit, IconUser } from '@tabler/icons-react';
 import { VCMetadata } from '../types/VCVP';
-import { Attribute } from './Attributes';
+import Attribute from './Attribute';
 
 interface VCAttributeProps {
   vcMetadata: VCMetadata;
 }
 
-export const VCAttribute = ({ vcMetadata }: VCAttributeProps) => {
+const VCAttribute = ({ vcMetadata }: VCAttributeProps) => {
   return (
     <>
       <Attribute
@@ -31,3 +31,5 @@ export const VCAttribute = ({ vcMetadata }: VCAttributeProps) => {
     </>
   );
 };
+
+export default VCAttribute;

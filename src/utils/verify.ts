@@ -1,6 +1,5 @@
 import * as jsonld from 'jsonld';
 import { VC, verify, verifyProof } from '@zkp-ld/jsonld-proofs';
-import didDocs from './didDocs.json';
 import { customDocumentLoader } from './documentLoader';
 import { CONTEXTS } from './contexts';
 import { EmbeddedVCVP, VCMetadata, VPMetadata, VerifiedVC, VerifiedVP } from '../types/VCVP';
@@ -31,12 +30,16 @@ const PPID = 'https://zkp-ld.org/.well-known/genid/';
 
 const documentLoader = customDocumentLoader(new Map(CONTEXTS.map(([k, v]) => [k, JSON.parse(v)])));
 
-export const verifyVCVPs = async (vcs: EmbeddedVCVP[], vps: EmbeddedVCVP[]) => ({
-  vcs: await Promise.all(vcs.map(verifyVC)),
-  vps: await Promise.all(vps.map(verifyVP)),
+export const verifyVCVPs = async (
+  vcs: EmbeddedVCVP[],
+  vps: EmbeddedVCVP[],
+  didDocs: jsonld.JsonLdDocument
+) => ({
+  vcs: await Promise.all(vcs.map((vc) => verifyVC(vc, didDocs))),
+  vps: await Promise.all(vps.map((vp) => verifyVP(vp, didDocs))),
 });
 
-const verifyVC = async (vc: EmbeddedVCVP): Promise<VerifiedVC> => {
+const verifyVC = async (vc: EmbeddedVCVP, didDocs: jsonld.JsonLdDocument): Promise<VerifiedVC> => {
   try {
     if (vc.jsonData == undefined)
       return {
@@ -67,7 +70,7 @@ const verifyVC = async (vc: EmbeddedVCVP): Promise<VerifiedVC> => {
   }
 };
 
-const verifyVP = async (vp: EmbeddedVCVP): Promise<VerifiedVP> => {
+const verifyVP = async (vp: EmbeddedVCVP, didDocs: jsonld.JsonLdDocument): Promise<VerifiedVP> => {
   try {
     if (vp.jsonData == undefined)
       return {

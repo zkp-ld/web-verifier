@@ -1,0 +1,50 @@
+.wrapper {
+  padding-top: calc(var(--mantine-spacing-xl) * 2);
+  height: 100%;
+  background-image: radial-gradient(
+    var(--mantine-color-blue-6) 0%,
+    var(--mantine-color-blue-4) 100%
+  );
+  background-repeat: no-repeat;
+  background-position: top left;
+  position: relative;
+  color: var(--mantine-color-black);
+}
+
+.title {
+  color: var(--mantine-color-white);
+  font-size: 3rem;
+  font-family: Greycliff CF, var(--mantine-font-family);
+  margin-bottom: calc(var(--mantine-spacing-xl) * 1.5);
+}
+
+.item {
+  background-color: var(--mantine-color-white);
+  border-bottom: 0;
+  border-radius: var(--mantine-radius-md);
+  box-shadow: var(--mantine-shadow-lg);
+  overflow: hidden;
+}
+
+.control {
+  font-size: var(--mantine-font-size-lg);
+  padding: var(--mantine-spacing-lg) var(--mantine-spacing-xl);
+  color: var(--mantine-color-black);
+}
+
+.content {
+  padding-left: var(--mantine-spacing-xl);
+  line-height: 1.6;
+  color: var(--mantine-color-black);
+}
+
+.label {
+  color: var(--mantine-color-white);
+  font-size: 1.5rem;
+}
+
+.error {
+  color: var(--mantine-color-red-6);
+  background-color: var(--mantine-color-white);
+  font-size: 1rem;
+}

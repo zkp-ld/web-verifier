@@ -119,7 +119,7 @@ const SidePanel = (props: SidePanelProps) => {
                     <Attribute
                       icon={IconExclamationMark}
                       title="verification error"
-                      description={JSON.parse(JSON.stringify(vc.error)) ?? 'unknown error'}
+                      description={vc.error as string ?? 'unknown error'}
                     />
                   )}
                   {vc.metadata && <VCAttribute vcMetadata={vc.metadata} />}

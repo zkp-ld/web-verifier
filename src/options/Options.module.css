@@ -43,6 +43,11 @@
   font-size: 1.5rem;
 }
 
+.tab {
+  color: var(--mantine-color-white);
+  font-size: 1rem;
+}
+
 .error {
   color: var(--mantine-color-red-6);
   background-color: var(--mantine-color-white);

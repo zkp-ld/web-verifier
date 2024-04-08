@@ -1,6 +1,6 @@
-import { CONTEXTS } from './contexts';
+import { BUILTIN_CONTEXTS } from './contexts';
 import { customDocumentLoader } from './documentLoader';
 
-export { CONTEXTS, customDocumentLoader };
+export { BUILTIN_CONTEXTS, customDocumentLoader };
 
 export const isDev = process.env.NODE_ENV === 'development';

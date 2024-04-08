@@ -14,7 +14,9 @@ const _contexts: [string, any][] = [
   ['https://zkp-ld.org/context.jsonld', zkpldContext],
 ];
 
-export const CONTEXTS: [string, string][] = _contexts.map(([k, v]) => [
-  k,
-  JSON.stringify(v, null, 2),
-]);
+export const BUILTIN_CONTEXTS = _contexts
+  .map(([k, v]) => [k, JSON.stringify(v, null, 2)])
+  .reduce((acc: Record<string, string>, cur) => {
+    acc[cur[0]] = cur[1];
+    return acc;
+  }, {});

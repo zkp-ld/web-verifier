@@ -11,6 +11,9 @@ const manifest = defineManifest(async (env) => ({
   description:
     'Enable verifying HTML documents using verifiable credentials and verifiable presentations',
   version,
+  background: {
+    service_worker: 'background/index.ts',
+  },
   content_scripts: [
     {
       matches: ['http://*/*', 'https://*/*', 'file:///*'],

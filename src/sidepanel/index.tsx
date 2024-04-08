@@ -4,6 +4,8 @@ import { createRoot } from 'react-dom/client';
 import SidePanel from './SidePanel';
 import { MantineProvider } from '@mantine/core';
 import { verifyVCVPs } from '../utils/verify';
+import { customDocumentLoader } from '../utils';
+import { RemoteDocument, Url } from 'jsonld/jsonld-spec';
 
 const root = createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -14,6 +16,21 @@ root.render(
   </React.StrictMode>
 );
 
+let didDocs = {};
+let documentLoader: (url: Url) => Promise<RemoteDocument>;
+
+(async () => {
+  const data = await chrome.storage.local.get(['didDocs', 'contexts']);
+  try {
+    didDocs = data.didDocs ? JSON.parse(data.didDocs) : {};
+    documentLoader = customDocumentLoader(data.contexts);
+  } catch (err) {
+    console.error(err);
+    didDocs = {};
+    documentLoader = customDocumentLoader({});
+  }
+})();
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const tab = sender.tab;
 
@@ -21,22 +38,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     const vcs = request.vcs ?? [];
     const vps = request.vps ?? [];
 
-    chrome.storage.local.get('didDocs').then((data) => {
-      try {
-        const didDocsStr = data.didDocs ?? '{}';
-        const didDocs = JSON.parse(didDocsStr);
-        verifyVCVPs(vcs, vps, didDocs).then(({ vcs, vps }) => {
-          root.render(
-            <React.StrictMode>
-              <MantineProvider>
-                <SidePanel vcs={vcs} vps={vps} tab={tab} />
-              </MantineProvider>
-            </React.StrictMode>
-          );
-        });
-      } catch (err) {
-        console.error(err);
-      }
+    verifyVCVPs(vcs, vps, didDocs, documentLoader).then(({ vcs, vps }) => {
+      root.render(
+        <React.StrictMode>
+          <MantineProvider>
+            <SidePanel vcs={vcs} vps={vps} tab={tab} />
+          </MantineProvider>
+        </React.StrictMode>
+      );
     });
   }
 });

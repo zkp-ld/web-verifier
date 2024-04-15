@@ -91,7 +91,7 @@ const SidePanel = (props: SidePanelProps) => {
                       multiline
                       label="The attached signature is correct. Check that the signed credential indeed asserts the content."
                     >
-                      <IconExclamationCircle className={classes.warningIcon} />
+                      <IconCircleCheck className={classes.acceptIcon} />
                     </Tooltip>
                   ) : (
                     <Tooltip label="Failed to verify the signature.">
@@ -160,7 +160,7 @@ const SidePanel = (props: SidePanelProps) => {
                         multiline
                         label="The attached signature is correct. Check that the signed credential indeed asserts the content."
                       >
-                        <IconExclamationCircle className={classes.warningIcon} />
+                        <IconCircleCheck className={classes.acceptIcon} />
                       </Tooltip>
                     )
                   ) : (

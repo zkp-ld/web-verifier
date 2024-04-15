@@ -19,8 +19,7 @@ const Options = () => {
 
   const handleDidDocsUpdate = (updated: string) => {
     try {
-      const updatedObj = JSON.parse(updated);
-      chrome.storage.local.set({ didDocs: updatedObj });
+      chrome.storage.local.set({ didDocs: updated });
       setDidDocs(updated);
     } catch (e) {
       console.error(e);

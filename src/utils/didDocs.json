@@ -5,6 +5,62 @@
       "https://www.w3.org/ns/data-integrity/v1",
       "https://w3id.org/security/multikey/v1"
     ],
+    "id": "did:example:bigtech.edu",
+    "verificationMethod": {
+      "id": "did:example:bigtech.edu#bls12_381-g2-pub001",
+      "type": "Multikey",
+      "controller": "did:example:bigtech.edu",
+      "publicKeyMultibase": "ukiiQxfsSfV0E2QyBlnHTK2MThnd7_-Fyf6u76BUd24uxoDF4UjnXtxUo8b82iuPZBOa8BXd1NpE20x3Rfde9udcd8P8nPVLr80Xh6WLgI9SYR6piNzbHhEVIfgd_Vo9P"
+    }
+  },
+  {
+    "@context": [
+      "https://www.w3.org/ns/did/v1",
+      "https://www.w3.org/ns/data-integrity/v1",
+      "https://w3id.org/security/multikey/v1"
+    ],
+    "id": "did:example:iiw2024.org",
+    "verificationMethod": {
+      "id": "did:example:iiw2024.org#k",
+      "type": "Multikey",
+      "controller": "did:example:iiw2024.org",
+      "publicKeyMultibase": "ukiiQxfsSfV0E2QyBlnHTK2MThnd7_-Fyf6u76BUd24uxoDF4UjnXtxUo8b82iuPZBOa8BXd1NpE20x3Rfde9udcd8P8nPVLr80Xh6WLgI9SYR6piNzbHhEVIfgd_Vo9P"
+    }
+  },
+  {
+    "@context": [
+      "https://www.w3.org/ns/did/v1",
+      "https://www.w3.org/ns/data-integrity/v1",
+      "https://w3id.org/security/multikey/v1"
+    ],
+    "id": "did:example:tokyo-corporate-union.jp",
+    "verificationMethod": {
+      "id": "did:example:tokyo-corporate-union.jp#k1",
+      "type": "Multikey",
+      "controller": "did:example:tokyo-corporate-union.jp",
+      "publicKeyMultibase": "ukiiQxfsSfV0E2QyBlnHTK2MThnd7_-Fyf6u76BUd24uxoDF4UjnXtxUo8b82iuPZBOa8BXd1NpE20x3Rfde9udcd8P8nPVLr80Xh6WLgI9SYR6piNzbHhEVIfgd_Vo9P"
+    }
+  },
+  {
+    "@context": [
+      "https://www.w3.org/ns/did/v1",
+      "https://www.w3.org/ns/data-integrity/v1",
+      "https://w3id.org/security/multikey/v1"
+    ],
+    "id": "did:example:corporate-registry.jp",
+    "verificationMethod": {
+      "id": "did:example:corporate-registry.jp#publickey",
+      "type": "Multikey",
+      "controller": "did:example:corporate-registry.jp",
+      "publicKeyMultibase": "ukiiQxfsSfV0E2QyBlnHTK2MThnd7_-Fyf6u76BUd24uxoDF4UjnXtxUo8b82iuPZBOa8BXd1NpE20x3Rfde9udcd8P8nPVLr80Xh6WLgI9SYR6piNzbHhEVIfgd_Vo9P"
+    }
+  },
+  {
+    "@context": [
+      "https://www.w3.org/ns/did/v1",
+      "https://www.w3.org/ns/data-integrity/v1",
+      "https://w3id.org/security/multikey/v1"
+    ],
     "id": "did:example:issuer0",
     "verificationMethod": {
       "id": "did:example:issuer0#bls12_381-g2-pub001",

@@ -2,6 +2,7 @@ import * as jsonld from 'jsonld';
 import { VC, verify, verifyProof } from '@zkp-ld/jsonld-proofs';
 import { EmbeddedVCVP, VCMetadata, VPMetadata, VerifiedVC, VerifiedVP } from '../types/VCVP';
 import { RemoteDocument } from 'jsonld/jsonld-spec';
+import { exampleSnarkVerifyingKeys } from './snarkVerifyingKeys';
 
 const BBS_BOUND = 'bbs-termwise-bound-signature-2023';
 const BBS_UNBOUND = 'bbs-termwise-signature-2023';
@@ -91,6 +92,7 @@ const verifyVP = async (
     const result = await verifyProof(vp.jsonData, didDocs, documentLoader, {
       challenge: vpMetadata.challenge,
       domain: vpMetadata.domain,
+      snarkVerifyingKeys: exampleSnarkVerifyingKeys,
     });
 
     return {

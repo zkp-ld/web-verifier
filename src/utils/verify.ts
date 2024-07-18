@@ -157,7 +157,7 @@ const getCreated = (vp: any): string | undefined =>
 
 const getVCs = (vp: any) => {
   const vcGraphs = vp?.[0]?.[CREDS_VC];
-  const vcs = vcGraphs.map((vpGraph: any) => vpGraph?.[GRAPH]);
+  const vcs = vcGraphs?.map((vpGraph: any) => vpGraph?.[GRAPH]);
 
   const boundVCs = vcs
     ?.filter((vc: any) => getProofCryptosuite(vc) === BBS_BOUND)
